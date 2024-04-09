@@ -1,6 +1,11 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #include <driver/i2s.h>
+//microphone pins
+#define MIC_SCK 41
+#define MIC_WS 42
+#define MIC_SDOUT 2
+
 
 // Replace with your network credentials
 
@@ -24,10 +29,10 @@ static void I2SSetup(void)
     };
     i2s_pin_config_t pin_config = {
         .mck_io_num = I2S_PIN_NO_CHANGE,
-        .bck_io_num = 41,                  // IIS_SCLK
-        .ws_io_num = 42,                   // IIS_LCLK
-        .data_out_num = I2S_PIN_NO_CHANGE, // IIS_DSIN
-        .data_in_num = 2                   // IIS_DOUT
+        .bck_io_num = MIC_SCK,                 // IIS_SCLK
+        .ws_io_num = MIC_WS,                   // IIS_LCLK
+        .data_out_num = I2S_PIN_NO_CHANGE,     // IIS_DSIN
+        .data_in_num = MIC_SDOUT               // IIS_DOUT
     };
     i2s_driver_install(I2S_PORT, &i2s_config, 0, NULL);
     i2s_set_pin(I2S_PORT, &pin_config);
